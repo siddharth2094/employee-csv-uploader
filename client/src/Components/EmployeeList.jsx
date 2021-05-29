@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CardContainer from './CardContainer';
 import EmployeeTableComponent from './EmployeeTableComponent';
 import {Card, CardTitle, CardHeader, CardBody, Button, Input} from 'reactstrap'
-import FileUploadModal from './Modal';
+import DefaultModal from './Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'toastr'
 import { fetchEmployeesList, updatePageIndex, updateQuery, uploadEmployeeData } from '../redux/actions';
@@ -36,8 +36,7 @@ const EmployeeList = () => {
             }
         } else {
             alert('Please upload File')
-        }
-        
+        } 
     }
 
     return (
@@ -68,19 +67,26 @@ const EmployeeList = () => {
                         <EmployeeTableComponent employee={employee} query={query} pageIndex={pageIndex} isLoading={isLoading} />
                     </CardBody>
                 </Card>
-                <FileUploadModal 
+                <DefaultModal 
                     isOpen={isOpen}
                     toggle={(bool) => toggleModal(bool)} 
                     confirm={() => {
+                        if(file.type !== "text/csv") {
+                            return toast.error('Please upload file in csv format. Take reference from sample')
+                        }
                         let formData = new FormData();
                         formData.append('file', file)
                         dispatch(uploadEmployeeData(formData, () => {
-                        dispatch(fetchEmployeesList(query))
-                        toggleModal(false)
+                            const newQuery=query;
+                            newQuery['skip'] = 0;
+                            dispatch(updatePageIndex(0));
+                            dispatch(updateQuery(newQuery))
+                        // dispatch(fetchEmployeesList(newQuery))
+                            toggleModal(false)
                     }))}} 
                     modalTitle="Upload Employee CSV">
                     <Input type="file" accept={['.csv']} onChange={handleFileChange} />
-                </FileUploadModal>
+                </DefaultModal>
             </CardContainer>
      );
 }

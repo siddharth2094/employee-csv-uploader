@@ -17,6 +17,22 @@ input[type="text"] {
   background-color: white;
 }
 
+a.action_tag {
+  cursor: pointer;
+  margin-right: 5px;
+}
+a.action_tag.primary {
+  color: #0d6efd;
+}
+
+a.action_tag.info {
+  color: #6c757d;
+}
+
+a.action_tag.danger {
+  color: #e34a45;
+}
+
 header {
   position: fixed;
   top: 0;

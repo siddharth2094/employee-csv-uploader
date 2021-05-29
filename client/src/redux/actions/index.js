@@ -4,6 +4,7 @@ import toast from "toastr";
 import {
   fetchEmployeeListService,
   uploadEmployeeDataService,
+  deleteEmployeeDataService,
 } from "../services/employee-services";
 
 export const updatePageIndex = (pageIndex) => (dispatch) =>
@@ -39,4 +40,16 @@ export const uploadEmployeeData = (formData, cb) => async (dispatch) => {
   } catch (error) {
     toast.error(error.response.data.message);
   }
+};
+
+export const deleteEmployeeData = (_id, cb) => async () => {
+  try {
+    const res = await deleteEmployeeDataService(_id);
+    if (res && res.status === 200) {
+      toast.success(res.data.message);
+      cb();
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {}
 };

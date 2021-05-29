@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ReactTable from "react-table-v6";
 import "react-table-v6/react-table.css";
-import { updatePageIndex, updateQuery } from '../redux/actions';
+import { deleteEmployeeData, updatePageIndex, updateQuery } from '../redux/actions';
+import * as Icon from "react-feather";
+import DefaultModal from './Modal';
+import EmployeeDetail from './EmployeeDetail';
 
 const EmployeeTableComponent = ({employee, query, pageIndex, isLoading}) => {
     const dispatch = useDispatch();
@@ -10,6 +13,19 @@ const EmployeeTableComponent = ({employee, query, pageIndex, isLoading}) => {
     const {data, count} = employee;
 
     const {limit} = query;
+
+    const [openEmpModal, toggleEmpModal] = useState(false);
+    const [openEmpDeleteModal, toggleEmpDeleteModal] = useState(false);
+    const [selectedEmpId, setSelectedEmpId] = useState("");
+    const [selectedEmpDetail, setSelectedEmpDetail] = useState({
+        name: '',
+        email: '',
+        age: '',
+        dob: '',
+        reporting_manager: '',
+        salary: '',
+        department:''
+    })
     
     const getColumn = () => {
         let columns =  [
@@ -49,6 +65,31 @@ const EmployeeTableComponent = ({employee, query, pageIndex, isLoading}) => {
             {
                 Header: 'Department',
                 accessor: 'department',
+            },
+            {
+                Header: 'Actions',
+                sortable: false,
+                Cell: props => {
+                    return <React.Fragment>
+                        <a
+                            title="View Employee" className="action_tag primary" onClick={() => {
+                                setSelectedEmpDetail({...selectedEmpDetail, ...props.original})
+                                toggleEmpModal(true)
+                            }
+                            }
+                        >
+                            <Icon.Eye size={20} />
+                        </a>
+                        <a
+                            title="Delete Employee" className="action_tag danger" onClick={() => {
+                                toggleEmpDeleteModal(true)
+                                setSelectedEmpId(props.original._id)
+                            }}
+                        >
+                            <Icon.Trash2 size={20} className="mr-50" />
+                        </a>
+                    </React.Fragment>
+                }
             }
         ];
         return columns
@@ -65,7 +106,7 @@ const EmployeeTableComponent = ({employee, query, pageIndex, isLoading}) => {
               page={pageIndex}
               manual
               className="-striped -highlight blog_data"
-              pageSizeOptions={[25, 50, 100, 500]}
+              pageSizeOptions={[5, 10, 25, 50, 100, 500]}
               onPageChange={(index) => {
                 // if(!index <0){
                     console.log(index)
@@ -129,6 +170,33 @@ const EmployeeTableComponent = ({employee, query, pageIndex, isLoading}) => {
             loading={isLoading}
             
             />
+            <DefaultModal
+                    isOpen={openEmpModal}
+                    toggle={(bool) => toggleEmpModal(bool)} 
+                    noSubmit={true}
+                    cancelText="Close"
+                    confirm={() => {
+                        
+                    }} 
+                    modalTitle="Employee Detail">
+                        <EmployeeDetail {...selectedEmpDetail} />
+                </DefaultModal>
+                <DefaultModal
+                    isOpen={openEmpDeleteModal}
+                    toggle={(bool) => toggleEmpDeleteModal(bool)} 
+                    // noSubmit={true}
+                    confirm={() => {
+                        dispatch(deleteEmployeeData(selectedEmpId, () => {
+                            toggleEmpDeleteModal(false)
+                            const newQuery=query;
+                            newQuery['skip'] = 0;
+                            dispatch(updatePageIndex(0));
+                            dispatch(updateQuery(newQuery))
+                        }))
+                    }} 
+                    modalTitle="Delete Employee Data">
+                        Do you really want to delete the given employee data ?
+                </DefaultModal>
             
         </React.Fragment>
      );

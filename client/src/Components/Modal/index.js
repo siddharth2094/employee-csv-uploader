@@ -8,7 +8,7 @@ import {
   Form,
 } from "reactstrap";
 
-class FileUploadModal extends React.Component {
+class DefaultModal extends React.Component {
   toggleModal = () => {
     this.props.toggle(!this.props.isOpen);
   };
@@ -31,11 +31,13 @@ class FileUploadModal extends React.Component {
           </ModalHeader>
           <ModalBody>{this.props.children}</ModalBody>
           <ModalFooter>
-            <Button color="success" type="submit">
-              {this.props.buttonText ? this.props.buttonText : "Yes"}
-            </Button>{" "}
+            {!this.props.noSubmit && (
+              <Button color="success" type="submit">
+                {this.props.buttonText ? this.props.buttonText : "Yes"}
+              </Button>
+            )}{" "}
             <Button onClick={this.toggleModal} color="danger" type="button">
-              Cancel
+              {this.props.cancelText ? this.props.cancelText : "Cancel"}
             </Button>{" "}
           </ModalFooter>
         </Form>
@@ -44,4 +46,4 @@ class FileUploadModal extends React.Component {
   }
 }
 
-export default FileUploadModal;
+export default DefaultModal;

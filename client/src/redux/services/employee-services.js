@@ -19,3 +19,6 @@ export const uploadEmployeeDataService = (formData) =>
   axios.post("/employee/add", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+
+export const deleteEmployeeDataService = (_id) =>
+  axios.delete(`/employee/${_id}`);
