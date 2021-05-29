@@ -66,7 +66,7 @@ const EmployeeList = () => {
                                 disabled={isLoading} 
                                 onClick={() => toggleModal(true)}>Upload CSV</Button>
                                 {/* <a onClick={() => downloadCsvFile()}>Sample</a> */}
-                                <CSVLink filename={"employee_sample.csv"} data={csvData}>Sample</CSVLink>;
+                                <CSVLink filename={"employee_sample.csv"} data={csvData}>Sample</CSVLink>
                         </div>
                     </CardHeader>
                     <CardBody>

@@ -48,6 +48,7 @@ header {
 }
 .navbar {
   padding: 0 10px;
+  height: 70px;
 }
 
 .navbar .navbar-brand .header_title {
