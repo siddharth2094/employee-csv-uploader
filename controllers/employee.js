@@ -26,7 +26,7 @@ const removeDir = (path) => {
   }
 };
 
-const addEmployee = async (req, res, next) => {
+const addEmployee = (req, res, next) => {
   let temp;
   // const csvData = csv().fromFile(req.file.path);
   var storage = multer.diskStorage({
@@ -48,7 +48,6 @@ const addEmployee = async (req, res, next) => {
     if (err) {
       return next(new HttpError("Something went wrong", 401));
     } else {
-      // console.log(req.body, "req.body");
       csv()
         .fromFile(req.file.path)
         .then((jsonObj) => {
@@ -74,20 +73,6 @@ const addEmployee = async (req, res, next) => {
               if (!jsonObj[x].salary) {
                 return next(new HttpError("Salary field is required", 400));
               }
-              temp = jsonObj[x].name;
-              jsonObj[x].name = temp;
-              temp = jsonObj[x].email;
-              jsonObj[x].email = temp;
-              temp = jsonObj[x].age;
-              jsonObj[x].age = temp;
-              temp = jsonObj[x].dob;
-              jsonObj[x].dob = temp;
-              temp = jsonObj[x].reporting_manager;
-              jsonObj[x].reporting_manager = temp;
-              temp = jsonObj[x].salary;
-              jsonObj[x].salary = temp;
-              temp = jsonObj[x].department;
-              jsonObj[x].department = temp;
             }
           } else {
             return next(new HttpError("No data found in file"), 404);
@@ -136,7 +121,7 @@ const addEmployee = async (req, res, next) => {
   });
 };
 
-const fetchEmployeeList = async (req, res, next) => {
+const fetchEmployeeList = (req, res, next) => {
   const schema = Joi.object({
     limit: Joi.string().required(),
     skip: Joi.string().required(),
@@ -200,5 +185,26 @@ const fetchEmployeeList = async (req, res, next) => {
   }
 };
 
+const deleteEmployee = (req, res, next) => {
+  const schema = Joi.object({
+    _id: Joi.string().required(),
+  });
+  const { error } = schema.validate(req.params);
+  if (error) {
+    return res.status(400).send({ message: "employee id is required" });
+  }
+  Employee.findByIdAndDelete({ _id: req.params._id })
+    .then((employee) => {
+      if (!employee) {
+        return res.status(404).send({ message: "No employee found!" });
+      }
+      res.send({ message: "employee data is successfully deleted" });
+    })
+    .catch((error) => {
+      return next(new HttpError("something went wrong!", 500));
+    });
+};
+
 exports.addEmployee = addEmployee;
 exports.fetchEmployeeList = fetchEmployeeList;
+exports.deleteEmployee = deleteEmployee;

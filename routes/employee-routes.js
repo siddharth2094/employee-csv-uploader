@@ -18,5 +18,6 @@ let uploads = multer({ storage: storage });
 
 router.post("/add", employeeControllers.addEmployee);
 router.get("/employeeList", employeeControllers.fetchEmployeeList);
+router.delete("/:_id", employeeControllers.deleteEmployee);
 
 module.exports = router;
