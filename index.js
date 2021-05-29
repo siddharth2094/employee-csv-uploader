@@ -41,7 +41,7 @@ app.use((error, req, res, next) => {
     .json({ message: error.message || "An unknown error occurred!" });
 });
 
-console.log(CsvUploader, siddharth20);
+console.log("CsvUploader", "siddharth20");
 
 mongoose
   .connect(
