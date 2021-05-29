@@ -47,19 +47,21 @@ const EmployeeList = () => {
                         <CardTitle>
                             Employee List
                         </CardTitle>
-                        <div className="d-flex align-items-center" style={{justifyContent: 'space-between'}}>
-                            <Input type="text" placeholder="search" value={query.search} onChange={e => {
+                        <Input type="text" placeholder="search" className="w-25" value={query.search} onChange={e => {
                                 const newQuery=query;
                                 newQuery['search'] = e.target.value;
                                 newQuery['skip'] = 0;
                                 dispatch(updatePageIndex(0));
                                 dispatch(updateQuery(newQuery))
                             }} />
+                        <div className="d-flex align-items-center" style={{justifyContent: 'space-between'}}>
+                            
                             <Button 
-                                style={{marginLeft: '10px'}} 
+                                style={{margin: '0 10px'}} 
                                 color="primary" 
                                 disabled={isLoading} 
-                                onClick={() => toggleModal(true)}>Upload</Button>
+                                onClick={() => toggleModal(true)}>Upload csv</Button>
+                                <a href="./employee.csv" download>Sample</a>
                         </div>
                     </CardHeader>
                     <CardBody>

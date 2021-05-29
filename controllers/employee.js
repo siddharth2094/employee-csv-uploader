@@ -35,7 +35,6 @@ const addEmployee = async (req, res, next) => {
   const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
-      console.log(req.body, "req.body");
       if (file.mimetype === "text/csv") {
         cb(null, true);
       } else {
@@ -146,7 +145,6 @@ const fetchEmployeeList = async (req, res, next) => {
     sortType: Joi.string().required(),
   });
   const { error } = schema.validate(req.query);
-  console.log(req);
   if (error) {
     return res.status(400).send({
       message: error.details[0].message,
@@ -175,7 +173,6 @@ const fetchEmployeeList = async (req, res, next) => {
         ? `-${req.query.sortKey}`
         : "name";
   }
-  console.log(sort);
   try {
     Employee.find(query)
       .limit(parseInt(req.query.limit))
@@ -186,7 +183,6 @@ const fetchEmployeeList = async (req, res, next) => {
           res.status(500).json(err);
           return;
         }
-        console.log(doc.length);
         Employee.countDocuments(query).exec(function (error, count) {
           if (error) {
             const err = new HttpError(error, 400);
@@ -199,7 +195,6 @@ const fetchEmployeeList = async (req, res, next) => {
         });
       });
   } catch (error) {
-    console.log(error);
     const err = new HttpError("Something went wrong", 500);
     return next(err);
   }

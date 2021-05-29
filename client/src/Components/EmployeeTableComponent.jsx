@@ -35,7 +35,7 @@ const EmployeeTableComponent = ({employee, query, pageIndex, isLoading}) => {
                 accessor: 'age',
             },
             {
-                Header: 'Date of birth',
+                Header: 'Date of Birth',
                 accessor: 'dob',
             },
             {
