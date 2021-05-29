@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "./redux/store";
 import * as actionTypes from "./redux/actionTypes";
 
-export const host = "http://localhost:5000";
+export const host = "";
 export const domain = `${host}/v0`;
 
 export const axiosInstance = axios.create({
