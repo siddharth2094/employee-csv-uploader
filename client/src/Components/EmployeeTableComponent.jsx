@@ -109,11 +109,9 @@ const EmployeeTableComponent = ({employee, query, pageIndex, isLoading}) => {
               pageSizeOptions={[5, 10, 25, 50, 100, 500]}
               onPageChange={(index) => {
                 // if(!index <0){
-                    console.log(index)
                     dispatch(updatePageIndex(index));
                     let newQuery = query;
                     newQuery["skip"] = index * newQuery.limit;
-                    console.log(newQuery);
                     dispatch(updateQuery(newQuery));
               }}
               onPageSizeChange={(rowPerPage) => {
@@ -126,7 +124,6 @@ const EmployeeTableComponent = ({employee, query, pageIndex, isLoading}) => {
             //   minRows={5}
               noDataText="No Employee found"
             onSortedChange={(a, b) => {
-                console.log(a, b)
                 let newQuery = query;
                 
                 if(b.Header === "Name") {

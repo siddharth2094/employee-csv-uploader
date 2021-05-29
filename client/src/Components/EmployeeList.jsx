@@ -6,11 +6,18 @@ import DefaultModal from './Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'toastr'
 import { fetchEmployeesList, updatePageIndex, updateQuery, uploadEmployeeData } from '../redux/actions';
+import { CSVLink } from "react-csv";
+
 
 const EmployeeList = () => {
     const dispatch = useDispatch();
     
     const [isOpen, toggleModal] = useState(false);
+
+    const [csvData] = useState([
+        ["name", "email",  "age", "dob", 'reporting_manager', 'salary', 'department'],
+        ["Alan Walker", "alan@gmail.com", "27", "22-03-1994", 'Andrew Ross', '1200000', 'IT'],
+      ])
 
     const [file, setFile] = useState("");
 
@@ -21,9 +28,8 @@ const EmployeeList = () => {
     const {employee, pageIndex, query} = employeeReducer;
 
     useEffect(() => {
-        console.log(query)
         dispatch(fetchEmployeesList(query))
-    },[query])
+    },[query, pageIndex, dispatch])
 
 
     const handleFileChange = e => {
@@ -32,7 +38,6 @@ const EmployeeList = () => {
                 return toast.error('Please upload file in csv format. Take reference from sample')
             } else {
                 setFile(e.target.files[0])
-                console.log(e.target.files[0].type)
             }
         } else {
             alert('Please upload File')
@@ -60,7 +65,8 @@ const EmployeeList = () => {
                                 color="primary" 
                                 disabled={isLoading} 
                                 onClick={() => toggleModal(true)}>Upload CSV</Button>
-                                <a href="./employee.csv" download>Sample</a>
+                                {/* <a onClick={() => downloadCsvFile()}>Sample</a> */}
+                                <CSVLink filename={"employee_sample.csv"} data={csvData}>Sample</CSVLink>;
                         </div>
                     </CardHeader>
                     <CardBody>

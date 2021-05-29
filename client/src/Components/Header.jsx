@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Navbar, NavbarBrand } from 'reactstrap';
 
 const Header = () => {
     return ( 
@@ -7,17 +7,6 @@ const Header = () => {
             <Navbar color="secondary" light>
             <NavbarBrand href="/" className="mr-auto"><span className="header_title">
                 EMPLOYEE CSV UPLOADER</span></NavbarBrand>
-        {/* <NavbarToggler onClick={toggleNavbar} className="mr-2" /> */}
-        {/* <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
-            <NavItem>
-              <NavLink href="/components/">Components</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse> */}
       </Navbar>
         </div>
      );

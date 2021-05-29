@@ -1,7 +1,6 @@
 import axios from "axios";
 import { store } from "./redux/store";
 import * as actionTypes from "./redux/actionTypes";
-import toast from "toastr";
 
 export const host = "http://localhost:5000";
 export const domain = `${host}/v0`;

@@ -2,7 +2,7 @@ import * as actionTypes from "../actionTypes";
 
 const initialState = {
   employee: {
-    data: [,],
+    data: [],
     count: 0,
   },
   pageIndex: 0,
