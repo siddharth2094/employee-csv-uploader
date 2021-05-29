@@ -41,6 +41,8 @@ app.use((error, req, res, next) => {
     .json({ message: error.message || "An unknown error occurred!" });
 });
 
+console.log(process.env.username, process.env.password);
+
 mongoose
   .connect(
     `mongodb+srv://${process.env.username}:${process.env.password}@cluster0.e8fl4.mongodb.net/employee-data`,
