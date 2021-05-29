@@ -59,7 +59,7 @@ const EmployeeList = () => {
                                 style={{margin: '0 10px'}} 
                                 color="primary" 
                                 disabled={isLoading} 
-                                onClick={() => toggleModal(true)}>Upload csv</Button>
+                                onClick={() => toggleModal(true)}>Upload CSV</Button>
                                 <a href="./employee.csv" download>Sample</a>
                         </div>
                     </CardHeader>
