@@ -41,11 +41,11 @@ app.use((error, req, res, next) => {
     .json({ message: error.message || "An unknown error occurred!" });
 });
 
-console.log(process.env.username, process.env.password);
+console.log(CsvUploader, siddharth20);
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.username}:${process.env.password}@cluster0.e8fl4.mongodb.net/employee-data`,
+    `mongodb+srv://CsvUploader:siddharth20@cluster0.e8fl4.mongodb.net/employee-data`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
