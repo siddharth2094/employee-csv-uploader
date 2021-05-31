@@ -34,7 +34,7 @@
 
 4. All columns given in table except actions are sortable, user need to click on any header name field, for eg: Name to sort table as per name in ascending as well as descending order.
 
-5. User can also view individual employee detail by clicking on eye icon, and can also delte any individual employee data by clicking on delete icon and confirming for same.
+5. User can also view individual employee detail by clicking on eye icon, and can also delete any individual employee data by clicking on delete icon and confirming for same.
 
 6. User can rreplace whole employee data by again uploading employee data csv file which will replace whole data with the new one.
 
