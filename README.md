@@ -21,7 +21,7 @@
 ## Steps for setting up frontend (react)
 
 1. Go to client folder, and then go to utils and replace host url with url on which your backend local server is running.
-2. Run npm install
+2. Now make sure to change your root directory path to client in your command prompt and then run npm install.
 3. Then run npm start to start frontend.
 
 ## application functionality brief
